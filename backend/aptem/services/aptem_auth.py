@@ -35,7 +35,7 @@ def refresh_aptem_cookie(*, session=None, env_path=None):
         session=session,
     )
     if not login_result.login_success:
-        raise AptemLoginError("Aptem login failed; no CHANGE_ME cookie was returned.")
+        raise AptemLoginError("Aptem login failed; no AUTHTOKEN cookie was returned.")
 
     write_env_value(
         env_path or settings.BASE_DIR / ".env",
@@ -95,7 +95,7 @@ def login_to_aptem(email, password, *, session=None):
 
     cookie_header = cookie_header_from_session(session)
     cookies = session.cookies.get_dict()
-    auth_token = cookies.get('CHANGE_ME')
+    auth_token = cookies.get("AUTHTOKEN")
     expires_at = decode_jwt_expiry(auth_token) if auth_token else None
     login_success = step2.status_code in {301, 302, 303, 307, 308} and bool(auth_token)
 

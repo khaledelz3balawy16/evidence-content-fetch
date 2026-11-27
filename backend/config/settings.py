@@ -20,7 +20,7 @@ def load_dotenv(path):
 load_dotenv(BASE_DIR / ".env")
 
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "CHANGE_ME")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", 'CHANGE_ME')
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() in {"1", "true", "yes", "on"}
 ALLOWED_HOSTS = [
     host.strip()

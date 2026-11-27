@@ -37,7 +37,7 @@ def analyse_evidence(text):
         result["analysis_summary"] = "No extracted text was available for analysis."
         return result
 
-    api_key = CHANGE_ME
+    api_key = settings.OPENAI_API_KEY
     model = getattr(settings, "OPENAI_MODEL", "")
     if not api_key or not model:
         return DEFAULT_ANALYSIS.copy()

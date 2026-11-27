@@ -15,6 +15,6 @@ class Command(BaseCommand):
         expires = result.expires_at.isoformat() if result.expires_at else "unknown"
         self.stdout.write(
             self.style.SUCCESS(
-                f"Aptem cookie refreshed. CHANGE_ME present: {result.auth_token_present}. Expires: {expires}"
+                f"Aptem cookie refreshed. AUTHTOKEN present: {result.auth_token_present}. Expires: {expires}"
             )
         )

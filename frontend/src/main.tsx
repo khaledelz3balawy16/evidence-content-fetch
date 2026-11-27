@@ -90,7 +90,7 @@ function csrfToken() {
 
 async function apiRequest<T>(url: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(url, {
-    credentials: "CHANGE_ME",
+    credentials: "same-origin",
     ...options,
     headers: {
       "Content-Type": "application/json",

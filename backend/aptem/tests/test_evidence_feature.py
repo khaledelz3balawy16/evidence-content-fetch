@@ -56,7 +56,7 @@ class FakeResponse:
 
 @override_settings(
     MEDIA_ROOT=tempfile.mkdtemp(),
-    APTEM_COOKIE_HEADER="CHANGE_ME=test; ASP.NET_SessionId=test; __RequestVerificationToken=test",
+    APTEM_COOKIE_HEADER="AUTHTOKEN=test; ASP.NET_SessionId=test; __RequestVerificationToken=test",
     APTEM_DOWNLOAD_DIRECTORY="media/aptem_evidence",
     APTEM_MAX_RETRIES=2,
     APTEM_REQUEST_TIMEOUT_SECONDS=1,
@@ -382,7 +382,7 @@ class ProcessorAndApiTests(TestCase):
     def test_cookie_not_exposed_in_api_output(self):
         user = get_user_model().objects.create_user(
             username="staff",
-            password="CHANGE_ME",
+            password='CHANGE_ME',
             is_staff=True,
         )
         AptemEvidence.objects.create(evidence_id=507, evidence_name="Safe")
@@ -392,10 +392,10 @@ class ProcessorAndApiTests(TestCase):
         response = client.get("/api/aptem/evidence/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertNotIn("CHANGE_ME", response.content.decode())
+        self.assertNotIn("AUTHTOKEN", response.content.decode())
 
     def test_staff_required(self):
-        user = get_user_model().objects.create_user(username="learner", password="CHANGE_ME")
+        user = get_user_model().objects.create_user(username="learner", password='CHANGE_ME')
         client = APIClient()
         client.force_authenticate(user=user)
 
